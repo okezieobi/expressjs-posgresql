@@ -19,13 +19,13 @@ Object.values(models)
   .forEach((model) => model.associate(models));
 
 (async () => {
-  await sequelize.authenticate().then(() => console.log('Database connection successful'));
-
-  /*
-  if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production') {
+    await sequelize.authenticate();
+  } else {
+    await sequelize.authenticate().then(() => console.log('Database connection successful'));
     await sequelize.sync({ force: true, match: /dev$/ });
-  }// no sequelize.sync(); use umzug migrations after writing models
-  */
+  }
+  // no sequelize.sync(); use umzug migrations after writing models
 })();
 
 const modelTimestamps = (SequelizeDataTypes) => ({
