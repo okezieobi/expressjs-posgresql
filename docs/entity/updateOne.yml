@@ -1,9 +1,9 @@
 paths:
-  /entries/{id}:                # path of the user from your endpoint
+  /entities/{id}:                # path of the user from your endpoint
     put:                 # endpoint request type (post request)
       tags:               # Tag property
         - Entry            # Value of the tag
-      summary: updates a specific, associated entry of an authenticated user
+      summary: updates a specific, associated entity of an authenticated user
       security:
        - ApiKeyAuth: []
       requestBody:
@@ -16,12 +16,12 @@ paths:
         - name: id
           in: path
           required: true
-          description: The id of diary entry to be retrieved.
+          description: The id of diary entity to be updated.
           schema:
             type: uuid
       responses:          # server responses
         200:
-          description: An object with entry details
+          description: An object with entity details
 components:        # Schema definition for request body
  schemas:
   update:
