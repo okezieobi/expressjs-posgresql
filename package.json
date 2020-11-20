@@ -1,5 +1,5 @@
 {
-  "name": "server-my-diary-demo",
+  "name": "expressjs-postgresql",
   "version": "0.0.0",
   "private": true,
   "main": "jest.config.js",
@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "DEBUG=server-my-diary-demo:* nodemon --exec babel-node src/bin/www.js",
+    "dev": "DEBUG=expressjs-postgresql:* nodemon --exec babel-node src/bin/www.js",
     "release": "npm run clean && npm run build-app && npm run start",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npm run build-app && npm run migrate",
