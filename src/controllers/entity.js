@@ -1,6 +1,6 @@
-export default class EntryController {
+export default class EntityController {
   constructor(services) {
-    this.services = services.entry;
+    this.services = services.entity;
     this.createOne = this.createOne.bind(this);
     this.findAll = this.findAll.bind(this);
     this.updateOne = this.updateOne.bind(this);
@@ -39,10 +39,10 @@ export default class EntryController {
 
   async updateOne({ body: { title, body } }, res, next) {
     await this.services.updateOne({
-      title: title || res.locals.data.entry.title,
-      body: body || res.locals.data.entry.body,
+      title: title || res.locals.data.entity.title,
+      body: body || res.locals.data.entity.body,
       UserId: res.locals.userId,
-      id: res.locals.data.entry.id,
+      id: res.locals.data.entity.id,
     }).then((data) => {
       if (data.message) throw data;
       else {

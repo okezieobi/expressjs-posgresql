@@ -11,16 +11,9 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('Users', [
+    await queryInterface.bulkInsert('Entities', [
       {
-        id: testUtils.user.mock2.id,
-        fullName: testUtils.user.mock2.fullName,
-        username: testUtils.user.mock2.username,
-        email: testUtils.user.mock2.email,
-        password: testUtils.user.mock2.hashedPassword,
-        type: 'Client',
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        ...testUtils.entity.mock.bulkInsert,
       },
     ]);
   },
@@ -32,6 +25,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('Entities', null, {});
   },
 };

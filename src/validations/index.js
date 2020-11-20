@@ -1,7 +1,7 @@
 import { validationResult, checkSchema } from 'express-validator';
 
 import UserSchema from './user';
-import EntrySchema from './entry';
+import EntitySchema from './entity';
 import jwt from '../utils/jwt';
 
 const handleValidationErr = (req, res, next) => {
@@ -19,7 +19,7 @@ const decodeJwt = async ({ headers }, res, next) => {
 };
 
 const userSchema = new UserSchema(checkSchema);
-const entrySchema = new EntrySchema(checkSchema);
+const entitySchema = new EntitySchema(checkSchema);
 
 export default {
   user: {
@@ -27,8 +27,8 @@ export default {
     login: [userSchema.validateLogin, handleValidationErr],
     jwt: [userSchema.validateJWT, handleValidationErr, decodeJwt],
   },
-  entry: {
-    create: [entrySchema.validateInput, handleValidationErr],
-    id: [entrySchema.validateEntryId, handleValidationErr],
+  entity: {
+    create: [entitySchema.validateInput, handleValidationErr],
+    id: [entitySchema.validateEntryId, handleValidationErr],
   },
 };

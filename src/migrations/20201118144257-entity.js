@@ -9,8 +9,8 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.sequelize.transaction(async (t) => {
-      await queryInterface.createTable('Entries', {
-        ...models.entry.schema(Sequelize),
+      await queryInterface.createTable('Entities', {
+        ...models.entity.schema(Sequelize),
         ...models.modelTimestamps(Sequelize),
         UserId: {
           type: Sequelize.UUID,
@@ -34,7 +34,7 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
     await queryInterface.sequelize.transaction(async (t) => {
-      await queryInterface.dropTable('Entries', { transaction: t });
+      await queryInterface.dropTable('Entities', { transaction: t });
     });
   },
 };

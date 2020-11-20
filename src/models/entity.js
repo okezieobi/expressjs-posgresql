@@ -1,6 +1,6 @@
 import { Model, Op } from 'sequelize';
 
-export default class Entry extends Model {
+export default class Entity extends Model {
   static async createOne({ title, body, id }, transaction) {
     return this.create({
       title,
@@ -45,8 +45,8 @@ export default class Entry extends Model {
     });
   }
 
-  static associate(models) {
-    this.belongsToUser = this.belongsTo(models.user, {
+  static associate({ user }) {
+    this.belongsToUser = this.belongsTo(user, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       foreignKey: {
@@ -81,7 +81,7 @@ export default class Entry extends Model {
     },
     {
       sequelize,
-      modelName: 'Entry',
+      modelName: 'Entity',
     });
   }
 }

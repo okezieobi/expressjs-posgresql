@@ -1,11 +1,11 @@
 import controllers from '../controllers';
 import validations from '../validations';
 import UserMiddleware from './user';
-import EntryMiddleware from './entry';
+import EntityMiddleware from './entity';
 
 const user = new UserMiddleware(validations, controllers);
-const entry = new EntryMiddleware(validations, controllers);
+const entity = new EntityMiddleware(validations, controllers);
 
 export default {
-  user, entry,
+  user, entity,
 };

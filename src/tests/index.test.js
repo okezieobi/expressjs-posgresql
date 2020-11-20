@@ -1,2 +1,2 @@
 import './user.test';
-import './entry.test';
+import './entity.test';

@@ -1,10 +1,10 @@
 import services from '../services';
 import UserController from './user';
-import EntryController from './entry';
+import EntityController from './entity';
 
 const user = new UserController(services);
-const entry = new EntryController(services);
+const entity = new EntityController(services);
 
 export default {
-  user, entry,
+  user, entity,
 };

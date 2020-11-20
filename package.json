@@ -23,10 +23,10 @@
     "seed-db:undo": "npx sequelize-cli db:seed:undo:all",
     "pretest": "NODE_ENV=test npm run migrate && NODE_ENV=test npm run seed-db",
     "posttest": "NODE_ENV=test npm run seed-db:undo && NODE_ENV=test npm run migrate:undo",
-    "migration-skeleton:user": "NODE_ENV=test npx sequelize-cli migration:generate --name User",
-    "migration-skeleton:entry": "NODE_ENV=test npx sequelize-cli migration:generate --name Entry",
-    "seed-skeleton:user": "NODE_ENV=test npx sequelize-cli seed:generate --name User",
-    "seed-skeleton:entry": "NODE_ENV=test npx sequelize-cli seed:generate --name Entry"
+    "migration-skeleton:user": "NODE_ENV=test npx sequelize-cli migration:generate --name user",
+    "migration-skeleton:entity": "NODE_ENV=test npx sequelize-cli migration:generate --name entity",
+    "seed-skeleton:user": "NODE_ENV=test npx sequelize-cli seed:generate --name user",
+    "seed-skeleton:entity": "NODE_ENV=test npx sequelize-cli seed:generate --name entity"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

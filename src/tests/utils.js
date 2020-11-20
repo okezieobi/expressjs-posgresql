@@ -16,14 +16,22 @@ export default {
       password: 'test-password',
     },
     mock2: {
-      id,
       token,
+      password: 'password one',
       fullName: 'Frank Okezie',
       username: 'Obiedere',
       email: 'okezie@email.com',
-      password: 'password one',
-      hashedPassword,
       token401,
+      bulkInsert: {
+        id,
+        fullName: 'Frank Okezie',
+        username: 'Obiedere',
+        email: 'okezie@email.com',
+        type: 'Client',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        password: hashedPassword,
+      },
     },
     mock3: {
       fullName: 'test-fullName-2',
@@ -32,12 +40,19 @@ export default {
       password: 'test-password',
     },
   },
-  entry: {
+  entity: {
     mock: {
-      id: '18ae5a5b-4c5f-410e-aef1-c0c800cf47f8',
+      id404,
       title: 'Test title',
       body: 'Test body',
-      id404,
+      bulkInsert: {
+        UserId: id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        id: '18ae5a5b-4c5f-410e-aef1-c0c800cf47f8',
+        title: 'Test title',
+        body: 'Test body',
+      },
     },
     mock2: {
       title: '2nd test title',
