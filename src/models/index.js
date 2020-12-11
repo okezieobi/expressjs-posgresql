@@ -22,8 +22,10 @@ Object.values(models)
   if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production') {
     await sequelize.authenticate();
   } else {
-    await sequelize.authenticate().then(() => console.log('Database connection successful'));
-    await sequelize.sync({ force: true, match: /dev$/ });
+    await sequelize.authenticate().then(async () => {
+      await sequelize.sync({ force: true, match: /dev$/ });
+      console.log('Database connection attempt and model update successful');
+    });
   }
   // no sequelize.sync(); use umzug migrations after writing models
 })();
