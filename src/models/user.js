@@ -1,47 +1,12 @@
-import { Model, Op } from 'sequelize';
-
-import bcryptUtil from '../utils/bcrypt';
+import { Model } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 export default class User extends Model {
-  static async createOne(user, transaction) {
-    await this.create(user, { transaction });
-    return this.findOne({
-      where: {
-        [Op.and]: [
-          { email: user.email }, { username: user.username },
-        ],
-      },
-      transaction,
-      attributes: {
-        exclude: ['password', 'updatedAt'],
-      },
-    });
+  static async compareString(hashedPassword = '', password = '') {
+    return bcrypt.compare(password, hashedPassword);
   }
 
-  static async findByUnique({ email, username }, transaction, exclude = []) {
-    return this.findOne({
-      where: {
-        [Op.or]: [
-          { email }, { username },
-        ],
-      },
-      transaction,
-      attributes: {
-        exclude,
-      },
-    });
-  }
-
-  static async findById(id, transaction) {
-    return this.findByPk(id, {
-      transaction,
-      attributes: {
-        exclude: ['password'],
-      },
-    });
-  }
-
-  static schema(DataTypes) {
+  static tableColumns(DataTypes) {
     return {
       id: {
         type: DataTypes.UUID,
@@ -71,7 +36,8 @@ export default class User extends Model {
         allowNull: false,
         notEmpty: true,
         set(value) {
-          this.setDataValue('password', bcryptUtil.hashString(value));
+          const salt = bcrypt.genSaltSync();
+          this.setDataValue('password', bcrypt.hashSync(value, salt));
         },
       },
       type: {
@@ -85,7 +51,7 @@ export default class User extends Model {
   static init(sequelize, DataTypes) {
     return super.init(
       {
-        ...this.schema(DataTypes),
+        ...this.tableColumns(DataTypes),
       },
       {
         sequelize,

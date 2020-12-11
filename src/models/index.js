@@ -43,4 +43,5 @@ export default {
   ...models,
   sequelize,
   modelTimestamps,
+  Sequelize,
 };

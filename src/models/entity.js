@@ -1,50 +1,6 @@
-import { Model, Op } from 'sequelize';
+import { Model } from 'sequelize';
 
 export default class Entity extends Model {
-  static async createOne({ title, body, id }, transaction) {
-    return this.create({
-      title,
-      body,
-      UserId: id,
-    }, {
-      transaction,
-    });
-  }
-
-  static async updateOne({
-    title, body, UserId, id,
-  }, transaction) {
-    await this.update({ title, body }, {
-      where: {
-        [Op.and]: [
-          { UserId }, { id },
-        ],
-      },
-      transaction,
-    });
-    return this.findOneByOwnerId({ UserId, id }, transaction);
-  }
-
-  static async findAllByOwnerId(id, transaction) {
-    return this.findAll({
-      where: {
-        UserId: id,
-      },
-      transaction,
-    });
-  }
-
-  static async findOneByOwnerId({ UserId, id }, transaction) {
-    return this.findOne({
-      where: {
-        [Op.and]: [
-          { UserId }, { id },
-        ],
-      },
-      transaction,
-    });
-  }
-
   static associate({ user }) {
     this.belongsToUser = this.belongsTo(user, {
       onDelete: 'CASCADE',
@@ -55,7 +11,7 @@ export default class Entity extends Model {
     });
   }
 
-  static schema(DataTypes) {
+  static tableColumns(DataTypes) {
     return {
       id: {
         type: DataTypes.UUID,
@@ -77,7 +33,7 @@ export default class Entity extends Model {
 
   static init(sequelize, DataTypes) {
     return super.init({
-      ...this.schema(DataTypes),
+      ...this.tableColumns(DataTypes),
     },
     {
       sequelize,
