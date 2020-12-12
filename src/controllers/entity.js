@@ -8,7 +8,7 @@ export default class EntityController {
   }
 
   async createOne({ body: { title, body } }, res, next) {
-    await this.services.create({ title, body, id: res.locals.userId })
+    await this.services.create({ title, body, UserId: res.locals.userId })
       .then((data) => {
         if (data.message) throw data;
         else {

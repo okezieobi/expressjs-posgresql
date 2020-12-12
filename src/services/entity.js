@@ -18,7 +18,7 @@ export default class EntityServices {
     });
   }
 
-  async findByOwner({ UserId }) {
+  async findByOwner(UserId) {
     return this.sequelize.transaction(async (t) => {
       const entities = await this.model.findAll({
         where: {
@@ -50,7 +50,7 @@ export default class EntityServices {
   async updateOne({
     title, body, UserId, id,
   }) {
-    return this.models.sequelize.transaction(async (t) => {
+    return this.sequelize.transaction(async (t) => {
       await this.model.update({ title, body }, {
         where: {
           [this.Sequelize.Op.and]: [
