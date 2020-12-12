@@ -53,7 +53,7 @@ export default class UserServices {
           const user = await this.model.findOne({
             where: {
               [this.Sequelize.Op.or]: [
-                { email: arg.email }, { username: arg.username },
+                { email: arg.user }, { username: arg.user },
               ],
             },
             transaction: t,

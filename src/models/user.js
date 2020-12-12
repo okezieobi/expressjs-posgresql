@@ -1,9 +1,10 @@
 import { Model } from 'sequelize';
-import bcrypt from 'bcrypt';
+
+import bcrypt from '../utils/bcrypt';
 
 export default class User extends Model {
   static async compareString(hashedPassword = '', password = '') {
-    return bcrypt.compare(password, hashedPassword);
+    return bcrypt.compareString(hashedPassword, password);
   }
 
   static tableColumns(DataTypes) {
@@ -36,8 +37,7 @@ export default class User extends Model {
         allowNull: false,
         notEmpty: true,
         set(value) {
-          const salt = bcrypt.genSaltSync();
-          this.setDataValue('password', bcrypt.hashSync(value, salt));
+          this.setDataValue('password', bcrypt.hashString(value));
         },
       },
       type: {
