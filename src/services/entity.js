@@ -59,7 +59,14 @@ export default class EntityServices {
         },
         transaction: t,
       });
-      const entity = await this.findOneByOwner({ UserId, id });
+      const entity = await this.model.findOne({
+        where: {
+          [this.Sequelize.Op.and]: [
+            { UserId }, { id },
+          ],
+        },
+        transaction: t,
+      });
       return { entity, status: 200 };
     });
   }
