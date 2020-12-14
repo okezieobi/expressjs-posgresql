@@ -7,8 +7,8 @@ export default class EntityController {
     this.findOneById = this.findOneById.bind(this);
   }
 
-  async createOne({ body: { title, body } }, res, next) {
-    await this.services.create({ title, body, UserId: res.locals.userId })
+  createOne({ body: { title, body } }, res, next) {
+    this.services.create({ title, body, UserId: res.locals.userId })
       .then((data) => {
         if (data.message) throw data;
         else {
@@ -18,16 +18,16 @@ export default class EntityController {
       }).catch(next);
   }
 
-  async findAll(req, res, next) {
-    await this.services.findByOwner(res.locals.userId)
+  findAll(req, res, next) {
+    this.services.findByOwner(res.locals.userId)
       .then((data) => {
         res.locals.data = data;
         next();
       }).catch(next);
   }
 
-  async findOneById({ params: { id } }, res, next) {
-    await this.services.findOneByOwner({ UserId: res.locals.userId, id })
+  findOneById({ params: { id } }, res, next) {
+    this.services.findOneByOwner({ UserId: res.locals.userId, id })
       .then((data) => {
         if (data.message) throw data;
         else {
@@ -37,8 +37,8 @@ export default class EntityController {
       }).catch(next);
   }
 
-  async updateOne({ body: { title, body } }, res, next) {
-    await this.services.updateOne({
+  updateOne({ body: { title, body } }, res, next) {
+    this.services.updateOne({
       title: title || res.locals.data.entity.title,
       body: body || res.locals.data.entity.body,
       UserId: res.locals.userId,
