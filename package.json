@@ -15,7 +15,7 @@
     "start": "node dist/bin/www.js",
     "test": "NODE_ENV=test jest src/tests/index.test.js",
     "coverage": "npm run test -- '--coverage'",
-    "coverage:coveralls": "jest --coverage && coveralls < coverage/lcov.info",
+    "coverage:coveralls": "npm run coverage && coveralls < coverage/lcov.info",
     "coverage:codacy": "npm run coverage && cp -R coverage .github/workflows/coverage/",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo:all",
