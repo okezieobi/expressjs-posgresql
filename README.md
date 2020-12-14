@@ -6,7 +6,7 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab9c7066c2724b12954c40e992759207)](https://www.codacy.com/gh/okezieobi/expressjs-posgresql/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=okezieobi/expressjs-posgresql&amp;utm_campaign=Badge_Grade)
 
-[![Build Status](https://travis-ci.org/okezieobi/expressjs-postgresql.svg?branch=main)](https://travis-ci.org/okezieobi/expressjs-postgresql)
+[![Build Status](https://travis-ci.com/okezieobi/expressjs-postgresql.svg?branch=main)](https://travis-ci.com/okezieobi/expressjs-postgresql)
 
 # Expresjs Template
 ## Stack
