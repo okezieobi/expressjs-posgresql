@@ -21,7 +21,7 @@ export default class UserController {
   }
 
   login({ body }, res, next) {
-    this.services.auth({ user: body.user, password: body.password })
+    this.services.auth(body)
       .then((data) => {
         if (data.message) throw data;
         else {
@@ -31,8 +31,8 @@ export default class UserController {
       }).catch(next);
   }
 
-  findById(req, res, next) {
-    this.services.authJWT(res.locals.userId).then((data) => {
+  findById(req, { locals: { userId } }, next) {
+    this.services.authJWT(userId).then((data) => {
       if (data.message) throw data;
       else next();
     }).catch(next);
