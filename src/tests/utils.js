@@ -1,62 +1,31 @@
-import bcrypt from '../utils/bcrypt';
+import models from '../models';
 import jwt from '../utils/jwt';
 
-const id = '18ae5a5b-4c5f-410e-aef1-c0c800cf47f9';
-const hashedPassword = bcrypt.hashString('password one');
-const token = jwt.generate({ id });
-const token401 = jwt.generate({ id: '18ae5a5b-4c5f-410e-aef1-c0c800cf47f6' });
-const id404 = '18ae5a5b-4c5f-410e-aef1-c0c800cf47f9';
+const user = {
+  fullName: 'test-fullName', username: 'test-username', email: 'test@email.com', password: 'test-password',
+};
+const newUser = {
+  fullName: 'test-fullName-new', username: 'test-username-new', email: 'test-new@email.com', password: 'test-password',
+};
+const userDAO = models.User.build(user);
+const token = jwt.generate(userDAO);
+const user404 = {
+  fullName: 'test-fullName-fake', username: 'test-username-fake', email: 'test-fake@email.com', password: 'test-password',
+};
+const user404DAO = models.User.build(user404);
+const token401 = jwt.generate(user404DAO);
+
+const entity = { title: 'test-title', body: 'test-body', UserId: userDAO.id };
+const entityDAO = new models.Entity(entity);
 
 export default {
-  user: {
-    mock: {
-      fullName: 'test-fullName-2',
-      username: 'test-username-2',
-      email: 'tester@email.com',
-      password: 'test-password',
-    },
-    mock2: {
-      token,
-      password: 'password one',
-      fullName: 'Frank Okezie',
-      username: 'Obiedere',
-      email: 'okezie@email.com',
-      token401,
-      bulkInsert: {
-        id,
-        fullName: 'Frank Okezie',
-        username: 'Obiedere',
-        email: 'okezie@email.com',
-        type: 'Client',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        password: hashedPassword,
-      },
-    },
-    mock3: {
-      fullName: 'test-fullName-2',
-      username: 'test-username-okezie',
-      email: 'frank@email.com',
-      password: 'test-password',
-    },
-  },
-  entity: {
-    mock: {
-      id404,
-      title: 'Test title',
-      body: 'Test body',
-      bulkInsert: {
-        UserId: id,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        id: '18ae5a5b-4c5f-410e-aef1-c0c800cf47f8',
-        title: 'Test title',
-        body: 'Test body',
-      },
-    },
-    mock2: {
-      title: '2nd test title',
-      body: '2nd test body',
-    },
-  },
+  seed: { userDAO, entityDAO },
+  token,
+  user,
+  entity,
+  newUser,
+  user404,
+  user404DAO,
+  token401,
+  models,
 };

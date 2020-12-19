@@ -1,8 +1,8 @@
 import { Model } from 'sequelize';
 
 export default class Entity extends Model {
-  static associate({ user }) {
-    this.belongsToUser = this.belongsTo(user, {
+  static associate({ User }) {
+    this.belongsToUser = this.belongsTo(User, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       foreignKey: {

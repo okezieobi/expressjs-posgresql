@@ -1,6 +1,6 @@
 export default class EntityServices {
-  constructor({ entity, sequelize, Sequelize }) {
-    this.model = entity;
+  constructor({ Entity, sequelize, Sequelize }) {
+    this.model = Entity;
     this.sequelize = sequelize;
     this.Sequelize = Sequelize;
   }

@@ -19,14 +19,8 @@
     "coverage:codacy": "npm run coverage && cp -R coverage .github/workflows/coverage/",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo:all",
-    "seed-db": "npx sequelize-cli db:seed:all",
-    "seed-db:undo": "npx sequelize-cli db:seed:undo:all",
-    "pretest": "NODE_ENV=test npm run migrate && NODE_ENV=test npm run seed-db",
-    "posttest": "NODE_ENV=test npm run seed-db:undo && NODE_ENV=test npm run migrate:undo",
     "migration-skeleton:user": "NODE_ENV=test npx sequelize-cli migration:generate --name user",
-    "migration-skeleton:entity": "NODE_ENV=test npx sequelize-cli migration:generate --name entity",
-    "seed-skeleton:user": "NODE_ENV=test npx sequelize-cli seed:generate --name user",
-    "seed-skeleton:entity": "NODE_ENV=test npx sequelize-cli seed:generate --name entity"
+    "migration-skeleton:entity": "NODE_ENV=test npx sequelize-cli migration:generate --name entity"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

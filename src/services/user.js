@@ -1,6 +1,6 @@
 export default class UserServices {
-  constructor({ user, sequelize, Sequelize }) {
-    this.model = user;
+  constructor({ User, sequelize, Sequelize }) {
+    this.model = User;
     this.sequelize = sequelize;
     this.Sequelize = Sequelize;
   }
