@@ -4,7 +4,7 @@ import app from '../app';
 import utils from './utils';
 
 describe('Authenticated User should be able to create an entity', () => {
-  it('Should be able to create a diary entity at "/api/v1/entities" if all required input fields are valid', async () => {
+  it('Should be able to create a entity at "/api/v1/entities" if all required input fields are valid', async () => {
     const { status, body: { data } } = await request(app).post('/api/v1/entities')
       .set('Cookie', `token=${utils.token}`).send(utils.entity);
     expect(status).toBeNumber().toEqual(201);
@@ -236,7 +236,7 @@ describe('Authenticated User can update an associated, specific entity by its id
     ]);
   });
 
-  it('Should NOT update associated, specific entities at at "/api/v1/entities/:id" if User is not authenticated', async () => {
+  it('Should NOT update associated, specific entity at at "/api/v1/entities/:id" if User is not authenticated', async () => {
     const { status, body: { error } } = await request(app).put(`/api/v1/entities/${utils.seed.entityDAO.id}`)
       .set('Cookie', `token=${utils.token401}`);
     expect(status).toBeNumber().toEqual(401);
@@ -244,7 +244,7 @@ describe('Authenticated User can update an associated, specific entity by its id
     expect(error.message).toBeString().toEqual('User not found, please sign up by creating an account');
   });
 
-  it('Should NOT update associated, specific entities at at "/api/v1/entities/:id" if entity does not exist', async () => {
+  it('Should NOT update associated, specific entity at at "/api/v1/entities/:id" if entity does not exist', async () => {
     const { status, body: { error } } = await request(app).put(`/api/v1/entities/${utils.seed.userDAO.id}`)
       .set('Cookie', `token=${utils.token}`);
     expect(status).toBeNumber().toEqual(404);
