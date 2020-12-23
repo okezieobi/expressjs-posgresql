@@ -16,7 +16,7 @@ const user404DAO = models.User.build(user404);
 const token401 = jwt.generate(user404DAO);
 
 const entity = { title: 'test-title', body: 'test-body', UserId: userDAO.id };
-const entityDAO = new models.Entity(entity);
+const entityDAO = models.Entity.build(entity);
 
 export default {
   seed: { userDAO, entityDAO },
