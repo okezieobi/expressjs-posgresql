@@ -1,3 +1,5 @@
+# Expresjs Template
+
 ![Node.js CI](https://github.com/okezieobi/expressjs-postgresql/workflows/Node.js%20CI/badge.svg)
 
 ![codacy-coverage-reporter](https://github.com/okezieobi/expressjs-postgresql/workflows/codacy-coverage-reporter/badge.svg)
@@ -10,6 +12,6 @@
 
 [![Build Status](https://travis-ci.com/okezieobi/expressjs-postgresql.svg?branch=main)](https://travis-ci.com/okezieobi/expressjs-postgresql)
 
-# Expresjs Template
 ## Stack
+
 ExpressJS/NodeJS, PostgreSQL/sequelize, Jest
