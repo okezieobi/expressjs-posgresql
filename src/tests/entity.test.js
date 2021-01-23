@@ -59,7 +59,7 @@ describe('Authorized User should be able to create an entity', () => {
   it('Should not create an entity at "/api/v1/entities" if token is falsy', async () => {
     const { status, body: { error } } = await request(app).post('/api/v1/entities')
       .send(utils.entity);
-    expect(status).toBeNumber().toEqual(400);
+    expect(status).toBeNumber().toEqual(401);
     expect(error.messages).toBeArray().toIncludeAllMembers([
       {
         msg: 'Token must be string data type',
@@ -100,7 +100,7 @@ describe('Authorized User should be able to get all associated entities', () => 
 
   it('Should not get associated entities at "/api/v1/entities" if token is falsy', async () => {
     const { status, body: { error } } = await request(app).get('/api/v1/entities');
-    expect(status).toBeNumber().toEqual(400);
+    expect(status).toBeNumber().toEqual(401);
     expect(error.messages).toBeArray().toIncludeAllMembers([
       {
         msg: 'Token must be string data type',
@@ -146,7 +146,7 @@ describe('Authorized User can get an associated, specific entity by its id', () 
 
   it('Should not get associated, specific entity at "/api/v1/entities/:id" if token is falsy', async () => {
     const { status, body: { error } } = await request(app).get(`/api/v1/entities/${utils.seed.entityDAO.id}`);
-    expect(status).toBeNumber().toEqual(400);
+    expect(status).toBeNumber().toEqual(401);
     expect(error.messages).toBeArray().toIncludeAllMembers([
       {
         msg: 'Token must be string data type',
@@ -216,7 +216,7 @@ describe('Authorized User can update an associated, specific entity by its id', 
   it('Should not update associated, specific entity at "/api/v1/entities/:id" if token is falsy', async () => {
     const { status, body: { error } } = await request(app).put(`/api/v1/entities/${utils.seed.entityDAO.id}`)
       .send(utils.entity);
-    expect(status).toBeNumber().toEqual(400);
+    expect(status).toBeNumber().toEqual(401);
     expect(error.messages).toBeArray().toIncludeAllMembers([
       {
         msg: 'Token must be string data type',
