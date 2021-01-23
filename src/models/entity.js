@@ -19,7 +19,7 @@ export default class Entity extends Model {
         primaryKey: true,
       },
       title: {
-        type: DataTypes.STRING(256),
+        type: DataTypes.TEXT,
         allowNull: false,
         notEmpty: true,
       },

@@ -15,18 +15,18 @@ export default class User extends Model {
         primaryKey: true,
       },
       fullName: {
-        type: DataTypes.STRING(256),
+        type: DataTypes.TEXT,
         allowNull: false,
         notEmpty: true,
       },
       username: {
-        type: DataTypes.STRING(256),
+        type: DataTypes.TEXT,
         allowNull: false,
         unique: true,
         notEmpty: true,
       },
       email: {
-        type: DataTypes.STRING(256),
+        type: DataTypes.TEXT,
         allowNull: false,
         unique: true,
         notEmpty: true,
