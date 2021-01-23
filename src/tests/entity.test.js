@@ -3,7 +3,7 @@ import request from 'supertest';
 import app from '../app';
 import utils from './utils';
 
-describe('Authenticated User should be able to create an entity', () => {
+describe('Authorized User should be able to create an entity', () => {
   it('Should be able to create a entity at "/api/v1/entities" if all required input fields are valid', async () => {
     const { status, body: { data } } = await request(app).post('/api/v1/entities')
       .set('Cookie', `token=${utils.token}`).send(utils.entity);
@@ -24,7 +24,7 @@ describe('Authenticated User should be able to create an entity', () => {
     expect(status).toBeNumber().toEqual(400);
     expect(error.messages).toBeArray().toIncludeAllMembers([
       {
-        msg: 'Entity title should be at most 256 characters long',
+        msg: 'Entity title should be at least a character long',
         param: 'title',
         location: 'body',
       },
@@ -39,7 +39,7 @@ describe('Authenticated User should be able to create an entity', () => {
         location: 'body',
       },
       {
-        msg: 'Entity body should be at least 1 character long',
+        msg: 'Entity body should be at least a character long',
         param: 'body',
         location: 'body',
       },
@@ -88,7 +88,7 @@ describe('Authenticated User should be able to create an entity', () => {
   });
 });
 
-describe('Authenticated User should be able to get all associated entities', () => {
+describe('Authorized User should be able to get all associated entities', () => {
   it('Should get all associated entities at "/api/v1/entities" if input all required fields are valid', async () => {
     const { status, body: { data } } = await request(app).get('/api/v1/entities')
       .set('Cookie', `token=${utils.token}`);
@@ -129,7 +129,7 @@ describe('Authenticated User should be able to get all associated entities', () 
   });
 });
 
-describe('Authenticated User can get an associated, specific entity by its id', () => {
+describe('Authorized User can get an associated, specific entity by its id', () => {
   it('Should get a specific entity at "/api/v1/entities/:id" by its id', async () => {
     const { status, body: { data } } = await request(app).get(`/api/v1/entities/${utils.seed.entityDAO.id}`)
       .set('Cookie', `token=${utils.token}`);
@@ -183,7 +183,7 @@ describe('Authenticated User can get an associated, specific entity by its id', 
   });
 });
 
-describe('Authenticated User can update an associated, specific entity by its id', () => {
+describe('Authorized User can update an associated, specific entity by its id', () => {
   it('Should update a specific entity at "/api/v1/entities:id" if all input fields are valid', async () => {
     const { status, body: { data } } = await request(app).put(`/api/v1/entities/${utils.seed.entityDAO.id}`)
       .set('Cookie', `token=${utils.token}`).send(utils.entity);
