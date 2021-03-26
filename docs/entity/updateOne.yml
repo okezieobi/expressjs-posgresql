@@ -21,7 +21,7 @@ paths:
           required: true
           description: The id of diary entity to be updated.
           schema:
-            type: uuid
+            type: string
       responses:          # server responses
         200:
           description: An object with entity details

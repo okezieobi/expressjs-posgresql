@@ -22,10 +22,10 @@ export default class EntityController {
 
   updateOne({ body: { title, body } }, res, next) {
     const input = {
-      title: title || res.locals.data.entry.title,
-      body: body || res.locals.data.entry.body,
+      title: title || res.locals.data.entity.title,
+      body: body || res.locals.data.entity.body,
       UserId: res.locals.user.id,
-      id: res.locals.data.entry.id,
+      id: res.locals.data.entity.id,
     };
     return this.handleServices(this.service, 'updateOne', input, res, next);
   }
