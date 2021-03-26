@@ -22,13 +22,13 @@ export default class EntityServices {
 
   async findByOwner(UserId) {
     return this.sequelize.transaction(async (t) => {
-      const entries = await this.model.findAll({
+      const entities = await this.model.findAll({
         where: {
           UserId,
         },
         transaction: t,
       });
-      return { entries };
+      return { entities };
     });
   }
 
