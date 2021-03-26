@@ -1,3 +1,5 @@
+import CustomError from './error';
+
 export default class UserServices {
   constructor({ User, sequelize, Sequelize }) {
     this.model = User;
@@ -7,7 +9,6 @@ export default class UserServices {
 
   async create(arg) {
     return this.sequelize.transaction(async (t) => {
-      let data;
       const userExists = await this.model.findOne({
         where: {
           [this.Sequelize.Op.or]: [
@@ -16,7 +17,7 @@ export default class UserServices {
         },
         transaction: t,
       });
-      if (userExists) data = { message: 'User already exists with either email or username, please sign in', status: 406 };
+      if (userExists) throw new CustomError(406, `Account already exists with either email ${arg.email} or username ${arg.username}, please sign in or sign up with a different email or username`);
       else {
         await this.model.create(arg, { transaction: t });
         const user = await this.model.findOne({
@@ -30,15 +31,13 @@ export default class UserServices {
             exclude: ['password', 'updatedAt'],
           },
         });
-        data = { user, status: 201 };
+        return { user, status: 201 };
       }
-      return data;
     });
   }
 
   async auth(arg) {
     return this.sequelize.transaction(async (t) => {
-      let data;
       const userExists = await this.model.findOne({
         where: {
           [this.Sequelize.Op.or]: [
@@ -49,37 +48,33 @@ export default class UserServices {
       });
       if (userExists) {
         const verifyPassword = await this.model.compareString(userExists.password, arg.password);
-        if (verifyPassword) {
-          const user = await this.model.findOne({
-            where: {
-              [this.Sequelize.Op.or]: [
-                { email: arg.user }, { username: arg.user },
-              ],
-            },
-            transaction: t,
-            attributes: {
-              exclude: ['password'],
-            },
-          });
-          data = { user, status: 200 };
-        } else data = { message: 'Password provided does not match user', status: 401 };
-      } else data = { message: 'User not found, please sign up by creating an account', status: 404 };
-      return data;
-    });
-  }
-
-  async authJWT(arg) {
-    return this.sequelize.transaction(async (t) => {
-      let data;
-      const user = await this.model.findByPk(arg, {
+        if (!verifyPassword) throw new CustomError(401, 'Password provided does not match user');
+      } else throw new CustomError(404, `Account with ${arg.user} does not exist, please sign up by creating an account`);
+      const user = await this.model.findOne({
+        where: {
+          [this.Sequelize.Op.or]: [
+            { email: arg.user }, { username: arg.user },
+          ],
+        },
         transaction: t,
         attributes: {
           exclude: ['password'],
         },
       });
-      if (user) data = { user, status: 200 };
-      else data = { message: 'User not found, please sign up by creating an account', status: 401 };
-      return data;
+      return { user };
+    });
+  }
+
+  async authJWT({ id }) {
+    return this.sequelize.transaction(async (t) => {
+      const user = await this.model.findByPk(id, {
+        transaction: t,
+        attributes: {
+          exclude: ['password'],
+        },
+      });
+      if (user === null) throw new CustomError(401, 'User not found, please sign up by creating an account');
+      return user;
     });
   }
 }

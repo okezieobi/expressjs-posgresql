@@ -1,3 +1,5 @@
+import CustomError from './error';
+
 export default class EntityServices {
   constructor({ Entity, sequelize, Sequelize }) {
     this.model = Entity;
@@ -20,19 +22,18 @@ export default class EntityServices {
 
   async findByOwner(UserId) {
     return this.sequelize.transaction(async (t) => {
-      const entities = await this.model.findAll({
+      const entries = await this.model.findAll({
         where: {
           UserId,
         },
         transaction: t,
       });
-      return { entities, status: 200 };
+      return { entries };
     });
   }
 
   async findOneByOwner({ UserId, id }) {
     return this.sequelize.transaction(async (t) => {
-      let data;
       const entity = await this.model.findOne({
         where: {
           [this.Sequelize.Op.and]: [
@@ -41,9 +42,8 @@ export default class EntityServices {
         },
         transaction: t,
       });
-      if (entity) data = { entity, status: 200 };
-      else data = { message: 'Entity not found', status: 404 };
-      return data;
+      if (entity === null) throw new CustomError(404, 'Entity not found');
+      return { entity };
     });
   }
 
@@ -67,7 +67,7 @@ export default class EntityServices {
         },
         transaction: t,
       });
-      return { entity, status: 200 };
+      return { entity };
     });
   }
 }

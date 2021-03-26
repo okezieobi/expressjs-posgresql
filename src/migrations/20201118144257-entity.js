@@ -10,8 +10,8 @@ module.exports = {
      */
     await queryInterface.sequelize.transaction(async (t) => {
       await queryInterface.createTable('Entities', {
-        ...models.Entity.tableColumns(Sequelize),
-        ...models.modelTimestamps(Sequelize),
+        ...models.tables.Entity(Sequelize),
+        ...models.tables.modelTimestamps(Sequelize),
         UserId: {
           type: Sequelize.UUID,
           references: {

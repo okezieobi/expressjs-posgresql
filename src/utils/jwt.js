@@ -7,7 +7,7 @@ export default class JWT {
     return jwt.sign({
       id,
     }, env.jwtSecret, {
-      expiresIn: 24 * 60 * 60,
+      expiresIn: '1h',
     });
   }
 

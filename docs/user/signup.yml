@@ -12,12 +12,7 @@ paths:
               $ref: '#/components/schemas/signup'
       responses:          # server responses
         201:
-          description: User details object in data property in response body and Json Web Token set in response cookie.
-          headers: 
-            Set-Cookie:
-              description: A Json Web Token named is set in a cookie named token and is automatically included in subsequent requests
-              schema:
-                type: string
+          description: User details object in data property in response body and Json Web Token set in response body.
         400:
           description: Error message array in error property of response body
         406:

@@ -10,8 +10,8 @@ module.exports = {
      */
     await queryInterface.sequelize.transaction(async (t) => {
       await queryInterface.createTable('Users', {
-        ...models.User.tableColumns(Sequelize),
-        ...models.modelTimestamps(Sequelize),
+        ...models.tables.User(Sequelize),
+        ...models.tables.modelTimestamps(Sequelize),
       }, { transaction: t });
     });
   },

@@ -1,43 +1,23 @@
-import { Model } from 'sequelize';
-
-export default class Entity extends Model {
-  static associate({ User }) {
-    this.belongsToUser = this.belongsTo(User, {
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-      foreignKey: {
-        allowNull: false,
-      },
-    });
-  }
-
-  static tableColumns(DataTypes) {
-    return {
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-      },
-      title: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        notEmpty: true,
-      },
-      body: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        notEmpty: true,
-      },
-    };
-  }
-
-  static init(sequelize, DataTypes) {
-    return super.init({
-      ...this.tableColumns(DataTypes),
+module.exports = (sequelize, SequelizeDatatype) => {
+  const table = (DataTypes) => ({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
     },
-    {
-      sequelize,
-      modelName: 'Entity',
-    });
-  }
-}
+    title: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      notEmpty: true,
+    },
+    body: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      notEmpty: true,
+    },
+  });
+
+  const model = sequelize.define('Entity', table(SequelizeDatatype));
+
+  return { model, table };
+};
