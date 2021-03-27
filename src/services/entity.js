@@ -1,10 +1,9 @@
-import CustomError from './error';
-
 export default class EntityServices {
-  constructor({ Entity, sequelize, Sequelize }) {
+  constructor({ Entity, sequelize, Sequelize }, CustomErr) {
     this.model = Entity;
     this.sequelize = sequelize;
     this.Sequelize = Sequelize;
+    this.CustomErr = CustomErr;
   }
 
   async create({ title, body, UserId }) {
@@ -42,7 +41,7 @@ export default class EntityServices {
         },
         transaction: t,
       });
-      if (entity === null) throw new CustomError(404, 'Entity not found');
+      if (entity === null) throw new this.CustomErr(404, 'Entity not found');
       return { entity };
     });
   }

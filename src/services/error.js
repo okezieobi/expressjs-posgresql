@@ -6,7 +6,6 @@ export default class CustomError extends Error {
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, CustomError);
     }
-
     this.name = 'CustomError';
     // Custom debugging information
     this.status = status;

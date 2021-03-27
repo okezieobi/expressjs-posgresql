@@ -1,10 +1,9 @@
-import CustomError from './error';
-
 export default class UserServices {
-  constructor({ User, sequelize, Sequelize }) {
+  constructor({ User, sequelize, Sequelize }, CustomErr) {
     this.model = User;
     this.sequelize = sequelize;
     this.Sequelize = Sequelize;
+    this.CustomErr = CustomErr;
   }
 
   async create(arg) {
@@ -17,7 +16,7 @@ export default class UserServices {
         },
         transaction: t,
       });
-      if (userExists) throw new CustomError(406, `Account already exists with either email ${arg.email} or username ${arg.username}, please sign in or sign up with a different email or username`);
+      if (userExists) throw new this.CustomErr(406, `Account already exists with either email ${arg.email} or username ${arg.username}, please sign in or sign up with a different email or username`);
       else {
         await this.model.create(arg, { transaction: t });
         const user = await this.model.findOne({
@@ -48,8 +47,8 @@ export default class UserServices {
       });
       if (userExists) {
         const verifyPassword = await this.model.compareString(userExists.password, arg.password);
-        if (!verifyPassword) throw new CustomError(401, 'Password provided does not match user');
-      } else throw new CustomError(404, `Account with ${arg.user} does not exist, please sign up by creating an account`);
+        if (!verifyPassword) throw new this.CustomErr(401, 'Password provided does not match user');
+      } else throw new this.CustomErr(404, `Account with ${arg.user} does not exist, please sign up by creating an account`);
       const user = await this.model.findOne({
         where: {
           [this.Sequelize.Op.or]: [
@@ -73,7 +72,7 @@ export default class UserServices {
           exclude: ['password'],
         },
       });
-      if (user === null) throw new CustomError(401, 'User not found, please sign up by creating an account');
+      if (user === null) throw new this.CustomErr(401, 'User not found, please sign up by creating an account');
       return user;
     });
   }
