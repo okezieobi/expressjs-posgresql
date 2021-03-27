@@ -46,7 +46,7 @@ export default class UserServices {
         transaction: t,
       });
       if (userExists) {
-        const verifyPassword = await this.model.compareString(userExists.password, arg.password);
+        const verifyPassword = await this.model.comparePassword(userExists.password, arg.password);
         if (!verifyPassword) throw new this.CustomErr(401, 'Password provided does not match user');
       } else throw new this.CustomErr(404, `Account with ${arg.user} does not exist, please sign up by creating an account`);
       const user = await this.model.findOne({

@@ -52,7 +52,7 @@ module.exports = (sequelize, SequelizeDatatype) => {
     });
   };
 
-  model.compareString = (hashedPassword = '', password = '') => bcrypt.compareString(hashedPassword, password);
+  model.comparePassword = (hashedPassword = '', password = '') => bcrypt.compareString(hashedPassword, password);
 
   return { model, table };
 };
